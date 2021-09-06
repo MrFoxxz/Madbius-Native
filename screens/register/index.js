@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import axios from 'axios';
 import {Button, StyleSheet, Text, TextInput, View} from 'react-native';
 import {RadioButton} from 'react-native-paper';
@@ -7,7 +7,7 @@ const Register = ({navigation}) => {
   const [name, setName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
-  const [communication, setCommunication] = React.useState('first');
+  const [communication, setCommunication] = React.useState('');
 
   let submitInfo = () => {
     let userInfo = {
@@ -23,11 +23,11 @@ const Register = ({navigation}) => {
     <View style={styles.container}>
       <Text style={styles.tittle}>REGISTRATE</Text>
       <Text style={styles.text}>Nombre</Text>
-      <TextInput onChangeText={setName}></TextInput>
+      <TextInput style={styles.input} onChangeText={setName}></TextInput>
       <Text style={styles.text}>Apellido</Text>
-      <TextInput onChangeText={setLastName}></TextInput>
+      <TextInput style={styles.input} onChangeText={setLastName}></TextInput>
       <Text style={styles.text}>Correo</Text>
-      <TextInput onChangeText={setEmail}></TextInput>
+      <TextInput style={styles.input} onChangeText={setEmail}></TextInput>
 
       <RadioButton.Group
         onValueChange={newValue => setCommunication(newValue)}
@@ -73,6 +73,11 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
   text: {
+    fontSize: 20,
+  },
+  input: {
+    backgroundColor: '#c5ced8',
+    borderRadius: 10,
     fontSize: 20,
   },
 });

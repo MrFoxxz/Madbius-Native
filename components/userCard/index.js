@@ -1,16 +1,32 @@
 import React, {useState} from 'react';
 import {
   Modal,
-  Pressable,
+  TextInput,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
+import {RadioButton} from 'react-native-paper';
 import axios from 'axios';
 
 const UserCard = props => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [name, setName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [communication, setCommunication] = React.useState('first');
+
+  let editUser = () => {
+    let newUserInfo = {
+      name: name,
+      lastName: lastName,
+      email: email,
+      communication: communication,
+    };
+    console.log(newUserInfo);
+    setModalVisible(false);
+  };
 
   const deleteUser = id => {
     axios.delete(`http://10.0.2.2:3001/api/user/delete/${id}`);
@@ -49,12 +65,51 @@ const UserCard = props => {
         }}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>Hello World!</Text>
-            <TouchableOpacity onPress={() => setModalVisible(false)}>
-              <View style={styles.button}>
-                <Text style={styles.content}>CERRAR</Text>
-              </View>
-            </TouchableOpacity>
+            <Text style={styles.text}>EDITAR USUARIO</Text>
+            <View style={{margin: 10}}>
+              <Text style={styles.text}>Nombre</Text>
+              <TextInput
+                style={styles.input}
+                onChangeText={setName}></TextInput>
+              <Text style={styles.text}>Apellido</Text>
+              <TextInput
+                style={styles.input}
+                onChangeText={setLastName}></TextInput>
+              <Text style={styles.text}>Correo</Text>
+              <TextInput
+                style={styles.input}
+                onChangeText={setEmail}></TextInput>
+
+              <RadioButton.Group
+                onValueChange={newValue => setCommunication(newValue)}
+                value={communication}>
+                <View>
+                  <Text>Zoom</Text>
+                  <RadioButton value="Zoom" />
+
+                  <Text>Discord</Text>
+                  <RadioButton value="Discord" />
+
+                  <Text>Meet</Text>
+                  <RadioButton value="Meet" />
+
+                  <Text>BlackBoard</Text>
+                  <RadioButton value="BlackBoard" />
+                </View>
+              </RadioButton.Group>
+            </View>
+            <View>
+              <TouchableOpacity onPress={() => editUser()}>
+                <View style={styles.button}>
+                  <Text style={styles.content}>EDITAR</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => setModalVisible(false)}>
+                <View style={styles.button}>
+                  <Text style={styles.content}>CERRAR</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </Modal>
@@ -88,11 +143,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#121212ab',
   },
   modalView: {
-    margin: 20,
+    width: 300,
     backgroundColor: 'white',
     borderRadius: 20,
     padding: 35,
-    alignItems: 'center',
+
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -113,6 +168,11 @@ const styles = StyleSheet.create({
   },
   content: {
     color: 'white',
+    fontSize: 20,
+  },
+  input: {
+    backgroundColor: '#c5ced8',
+    borderRadius: 10,
     fontSize: 20,
   },
 });
