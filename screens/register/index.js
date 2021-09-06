@@ -1,19 +1,22 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import axios from 'axios';
 import {Button, StyleSheet, Text, TextInput, View} from 'react-native';
+import {RadioButton} from 'react-native-paper';
 
 const Register = ({navigation}) => {
   const [name, setName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
+  const [communication, setCommunication] = React.useState('first');
 
-  let user = {
-    name: name,
-    lastName: lastName,
-    email: email,
-  };
-
-  let handleInput = () => {
-    console.log(user);
+  let submitInfo = () => {
+    let userInfo = {
+      name: name,
+      lastName: lastName,
+      email: email,
+      communication: communication,
+    };
+    axios.post('http://10.0.2.2:3001/api/user/new', userInfo);
   };
 
   return (
@@ -25,7 +28,26 @@ const Register = ({navigation}) => {
       <TextInput onChangeText={setLastName}></TextInput>
       <Text style={styles.text}>Correo</Text>
       <TextInput onChangeText={setEmail}></TextInput>
-      <Button title="Registrarse" onPress={() => handleInput()} color="black" />
+
+      <RadioButton.Group
+        onValueChange={newValue => setCommunication(newValue)}
+        value={communication}>
+        <View>
+          <Text>Zoom</Text>
+          <RadioButton value="Zoom" />
+
+          <Text>Discord</Text>
+          <RadioButton value="Discord" />
+
+          <Text>Meet</Text>
+          <RadioButton value="Meet" />
+
+          <Text>BlackBoard</Text>
+          <RadioButton value="BlackBoard" />
+        </View>
+      </RadioButton.Group>
+
+      <Button title="Registrarse" onPress={() => submitInfo()} color="black" />
       <Button
         title="Usuarios"
         onPress={() => navigation.navigate('Usuarios')}

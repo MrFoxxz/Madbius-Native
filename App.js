@@ -24,10 +24,18 @@ const App = () => {
         <Stack.Screen
           name="Registro"
           component={Register}
-          options={{title: 'Welcome'}}
+          options={{headerShown: false}}
         />
-        <Stack.Screen name="Usuarios" component={Users} />
-        <Stack.Screen name="Permisos" component={Permissions} />
+        <Stack.Screen
+          name="Usuarios"
+          options={{headerShown: false}}
+          component={Users}
+        />
+        <Stack.Screen
+          name="Permisos"
+          options={{headerShown: false}}
+          component={Permissions}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
