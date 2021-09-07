@@ -17,6 +17,8 @@ const Register = ({navigation}) => {
       communication: communication,
     };
     axios.post('http://10.0.2.2:3001/api/user/new', userInfo);
+
+    navigation.navigate('Usuarios');
   };
 
   return (

@@ -24,7 +24,7 @@ const UserCard = props => {
       email: email,
       communication: communication,
     };
-    console.log(newUserInfo);
+    axios.put('http://10.0.2.2:3001/user/update', newUserInfo);
     setModalVisible(false);
   };
 
