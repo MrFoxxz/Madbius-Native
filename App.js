@@ -14,7 +14,16 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Register from './screens/register';
 import Users from './screens/users';
 import Permissions from './screens/permissionsTest';
+//REDUX
+/* import {createStore} from 'redux';
+import {offline} from '@redux-offline/redux-offline';
+import offlineConfig from '@redux-offline/redux-offline/lib/defaults';
+import {Provider} from 'react-redux';
+import reducer from './reducers/index'; */
 
+/* npx react-native run-android */
+
+//const store = createStore(reducer, offline(offlineConfig));
 const Stack = createNativeStackNavigator();
 
 const App = () => {
