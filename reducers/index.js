@@ -1,14 +1,12 @@
-import {NEW_USER_COMMIT, GET_USERS, NEW_USER} from '../actions/index';
+import {combineReducers} from 'redux';
+import Users from './Users';
+import Products from './Products';
+import testingReducer from './testingReducer';
 
-export default function uploads(state = [], action) {
-  switch (action.type) {
-    case GET_USERS:
-      return state;
-    case NEW_USER_COMMIT:
-      return [...action.payload];
-    case NEW_USER:
-      return [...state, action.payload];
-    default:
-      return state;
-  }
-}
+const AllReducers = combineReducers({
+  testing: testingReducer,
+  users: Users,
+  products: Products,
+});
+
+export default AllReducers;
