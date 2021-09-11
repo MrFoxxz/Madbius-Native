@@ -1,26 +1,17 @@
-import {NEW_USER_COMMIT, GET_USERS, NEW_USER, TESTING} from '../actions/index';
+import {GET_USERS} from '../actions/index';
 
-const INIT_STATE = {
-  testing: 'ABC',
+const INIT_USER_STATE = {
+  usersListStore: [],
 };
 
-export default (state = INIT_STATE, action) => {
+const UsersInformation = (state = INIT_USER_STATE, action) => {
   switch (action.type) {
     case GET_USERS:
-      return state.users;
-    case NEW_USER_COMMIT:
-      return [...action.payload];
-    case NEW_USER:
-      return {
-        ...state,
-        users: [...state.users, action.payload],
-      };
-    case TESTING:
-      return {
-        ...state,
-        testing: action.payload,
-      };
+      state.usersListStore.push(action.payload);
+      return state;
     default:
       return state;
   }
 };
+
+export default UsersInformation;

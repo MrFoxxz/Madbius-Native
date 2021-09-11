@@ -1,13 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import {ScrollView, Button, StyleSheet, View} from 'react-native';
+import {ScrollView, Text, Button, StyleSheet, View} from 'react-native';
 import UserCard from '../../components/userCard';
 import Loader from '../../components/loader';
 //Redux
 import {useSelector, useDispatch} from 'react-redux';
-import {testRedux} from '../../actions';
-
-let data = 'REDUX TEST';
+import {testRedux, getUserListStore} from '../../actions/index.js';
 
 const Users = ({}) => {
   const dispatch = useDispatch();
@@ -15,10 +13,12 @@ const Users = ({}) => {
   const [timePassed, setTimePassed] = useState(false);
 
   const reduxTest = useSelector(state => state.testing);
+  const userListStore = useSelector(state => state.users);
 
   useEffect(() => {
     axios.get('http://10.0.2.2:3001/api/user/get').then(response => {
-      setuserList(response.data.rows);
+      let usersData = response.data.rows;
+      setuserList(usersData);
       setTimePassed(true);
     });
   }, []);
@@ -29,11 +29,23 @@ const Users = ({}) => {
     return (
       <ScrollView>
         <View>
-          <Button title="Ver store" onPress={() => console.log(reduxTest)} />
+          <Button
+            title="Ver store"
+            onPress={() => console.log(userListStore)}
+          />
           <Button
             title="Modificar store"
-            onPress={() => dispatch(testRedux(data))}
+            onPress={() => dispatch(testRedux('holi'))}
           />
+          <Button
+            title="Modificar store II"
+            onPress={() =>
+              userList.map(val => {
+                dispatch(getUserListStore(val));
+              })
+            }
+          />
+          <Text>{reduxTest.testing}</Text>
         </View>
 
         <View style={styles.container}>
