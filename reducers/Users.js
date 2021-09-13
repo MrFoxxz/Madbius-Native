@@ -1,4 +1,4 @@
-import {SET_USERS} from '../constants/ActionTypes';
+import {SET_USERS, POST_NEW_USER} from '../constants/ActionTypes';
 
 const INIT_USER_STATE = {
   usersListStore: [],
@@ -11,14 +11,7 @@ const UsersInformation = (state = INIT_USER_STATE, action) => {
         ...state,
         usersListStore: action.payload,
       };
-    default:
-      return state;
-  }
-};
-
-/* const UsersInformation = (state = INIT_USER_STATE, action) => {
-  switch (action.type) {
-    case GET_USERS:
+    case POST_NEW_USER:
       return {
         ...state,
         usersListStore: [...state.usersListStore, action.payload],
@@ -26,6 +19,6 @@ const UsersInformation = (state = INIT_USER_STATE, action) => {
     default:
       return state;
   }
-}; */
+};
 
 export default UsersInformation;

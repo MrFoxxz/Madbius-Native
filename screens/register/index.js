@@ -2,8 +2,12 @@ import React, {useState} from 'react';
 import axios from 'axios';
 import {Button, StyleSheet, Text, TextInput, View} from 'react-native';
 import {RadioButton} from 'react-native-paper';
+//Redux
+import {useSelector, useDispatch} from 'react-redux';
+import {postNewUser} from '../../actions/index.js';
 
 const Register = ({navigation}) => {
+  const dispatch = useDispatch();
   const [user, setUser] = useState({
     name: '',
     lastName: '',
@@ -11,10 +15,12 @@ const Register = ({navigation}) => {
     communication: '',
   });
 
+  const {usersListStore} = useSelector(state => state.users);
+
   let submitInfo = () => {
     let userInfo = user;
     axios.post('http://10.0.2.2:3001/api/user/new', userInfo);
-
+    dispatch(postNewUser(userInfo));
     navigation.navigate('Usuarios');
   };
 
@@ -52,7 +58,16 @@ const Register = ({navigation}) => {
         </View>
       </RadioButton.Group>
 
-      <Button title="Registrarse" onPress={() => submitInfo()} color="black" />
+      <Button
+        title="Registrarse"
+        onPress={() => submitInfo() /* submitInfo() */}
+        color="black"
+      />
+      <Button
+        title="Ver Store"
+        onPress={() => console.log(usersListStore) /* submitInfo() */}
+        color="red"
+      />
       <Button
         title="Usuarios"
         onPress={() => navigation.navigate('Usuarios')}
