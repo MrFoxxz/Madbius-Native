@@ -4,18 +4,15 @@ import {Button, StyleSheet, Text, TextInput, View} from 'react-native';
 import {RadioButton} from 'react-native-paper';
 
 const Register = ({navigation}) => {
-  const [name, setName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [communication, setCommunication] = React.useState('');
+  const [user, setUser] = useState({
+    name: '',
+    lastName: '',
+    email: '',
+    communication: '',
+  });
 
   let submitInfo = () => {
-    let userInfo = {
-      name: name,
-      lastName: lastName,
-      email: email,
-      communication: communication,
-    };
+    let userInfo = user;
     axios.post('http://10.0.2.2:3001/api/user/new', userInfo);
 
     navigation.navigate('Usuarios');
@@ -25,15 +22,21 @@ const Register = ({navigation}) => {
     <View style={styles.container}>
       <Text style={styles.tittle}>REGISTRATE</Text>
       <Text style={styles.text}>Nombre</Text>
-      <TextInput style={styles.input} onChangeText={setName}></TextInput>
+      <TextInput
+        style={styles.input}
+        onChangeText={text => setUser({...user, name: text})}></TextInput>
       <Text style={styles.text}>Apellido</Text>
-      <TextInput style={styles.input} onChangeText={setLastName}></TextInput>
+      <TextInput
+        style={styles.input}
+        onChangeText={text => setUser({...user, lastName: text})}></TextInput>
       <Text style={styles.text}>Correo</Text>
-      <TextInput style={styles.input} onChangeText={setEmail}></TextInput>
+      <TextInput
+        style={styles.input}
+        onChangeText={text => setUser({...user, email: text})}></TextInput>
 
       <RadioButton.Group
-        onValueChange={newValue => setCommunication(newValue)}
-        value={communication}>
+        onValueChange={newValue => setUser({...user, communication: newValue})}
+        value={user.communication}>
         <View>
           <Text>Zoom</Text>
           <RadioButton value="Zoom" />
