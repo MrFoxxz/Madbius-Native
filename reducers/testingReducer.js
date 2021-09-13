@@ -1,7 +1,7 @@
 import {TESTING} from '../constants/ActionTypes';
 
 const INIT_TEST_STATE = {
-  testing: 'ABC',
+  testing: '',
 };
 
 const testingReducer = (state = INIT_TEST_STATE, action) => {

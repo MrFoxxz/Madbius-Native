@@ -3,10 +3,10 @@ import UsersInformation from './Users';
 import Products from './Products';
 import testingReducer from './testingReducer';
 
-const AllReducers = combineReducers({
+const rootReducer = combineReducers({
   testing: testingReducer,
   users: UsersInformation,
   products: Products,
 });
 
-export default AllReducers;
+export default rootReducer;

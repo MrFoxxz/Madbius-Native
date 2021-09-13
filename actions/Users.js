@@ -1,6 +1,6 @@
-import {GET_USERS} from '../constants/ActionTypes';
+import {SET_USERS} from '../constants/ActionTypes';
 
 export const getUserListStore = data => ({
-  type: GET_USERS,
+  type: SET_USERS,
   payload: data,
 });
