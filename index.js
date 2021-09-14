@@ -7,15 +7,17 @@ import React from 'react';
 import App from './App';
 import {name as MadbiusMovile} from './app.json';
 import {Provider} from 'react-redux';
+import {ReduxNetworkProvider} from 'react-native-offline';
 
 import configureStore from './store/configureStore';
-import AllReducers from './reducers/index';
 
-const store = configureStore(AllReducers);
+const store = configureStore();
 
 const MadbiusMovileApp = () => (
   <Provider store={store}>
-    <App />
+    <ReduxNetworkProvider>
+      <App />
+    </ReduxNetworkProvider>
   </Provider>
 );
 
