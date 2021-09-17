@@ -1,10 +1,14 @@
 import React, {useState} from 'react';
 import axios from 'axios';
-import {Button, StyleSheet, Text, TextInput, View} from 'react-native';
+import {Button, StyleSheet, Alert, Text, TextInput, View} from 'react-native';
 import {RadioButton} from 'react-native-paper';
 //Redux
 import {useSelector, useDispatch} from 'react-redux';
 import {postNewUser} from '../../actions/index.js';
+//Geolocation
+import Geolocation from '@react-native-community/geolocation';
+//Permissions
+import {requestLocationPermission} from '../../permissions/android';
 
 const Register = ({navigation}) => {
   const dispatch = useDispatch();
@@ -16,6 +20,18 @@ const Register = ({navigation}) => {
   });
 
   const {usersListStore} = useSelector(state => state.users);
+
+  let getLocation = () => {
+    requestLocationPermission();
+    Geolocation.getCurrentPosition(
+      position => {
+        const initialPosition = JSON.stringify(position);
+        console.log(initialPosition);
+      },
+      error => Alert.alert('Error', JSON.stringify(error)),
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
+    );
+  };
 
   let submitInfo = () => {
     let userInfo = user;
@@ -58,15 +74,16 @@ const Register = ({navigation}) => {
         </View>
       </RadioButton.Group>
 
-      <Button
-        title="Registrarse"
-        onPress={() => submitInfo() /* submitInfo() */}
-        color="black"
-      />
+      <Button title="Registrarse" onPress={() => submitInfo()} color="black" />
       <Button
         title="Ver Store"
-        onPress={() => console.log(usersListStore) /* submitInfo() */}
+        onPress={() => console.log(usersListStore)}
         color="red"
+      />
+      <Button
+        title="get location"
+        onPress={() => getLocation()}
+        color="green"
       />
       <Button
         title="Usuarios"

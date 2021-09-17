@@ -20,6 +20,12 @@ export const requestCameraPermission = () => {
   });
 };
 
+export const requestLocationPermission = () => {
+  request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION).then(result => {
+    console.log(JSON.stringify(result));
+  });
+};
+
 export const requestMultiplePermission = () =>
   requestMultiple([
     PERMISSIONS.ANDROID.CAMERA,
