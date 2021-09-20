@@ -14,42 +14,43 @@ const Users = ({}) => {
   const {usersListStore} = useSelector(state => state.users);
 
   useEffect(() => {
-    axios.get('http://10.0.2.2:3001/api/user/get').then(response => {
-      let usersData = response.data.rows;
-      dispatch(getUserListStore(usersData));
-      setTimePassed(true);
-    });
+    axios
+      .get('http://10.0.2.2:3001/api/user/get')
+      .then(response => {
+        let usersData = response.data.rows;
+        dispatch(getUserListStore(usersData));
+        setTimePassed(true);
+      })
+      .catch(e => {
+        setTimePassed(true);
+      });
   }, []);
 
-  if (!timePassed) {
+  /*   if (!timePassed) {
     return <Loader />;
-  } else {
-    return (
-      <ScrollView>
-        <View>
-          <Button
-            title="Ver store"
-            onPress={() => console.log(usersListStore)}
-          />
-        </View>
+  } else { */
+  return (
+    <ScrollView>
+      <View>
+        <Button title="Ver store" onPress={() => console.log(usersListStore)} />
+      </View>
 
-        <View style={styles.container}>
-          {usersListStore.map(val => {
-            return (
-              <UserCard
-                key={val.id}
-                id={val.id}
-                name={val.name}
-                lastName={val.lastname}
-                email={val.email}
-                comunnication={val.communication_channel}
-              />
-            );
-          })}
-        </View>
-      </ScrollView>
-    );
-  }
+      <View style={styles.container}>
+        {usersListStore.map(val => {
+          return (
+            <UserCard
+              key={val.id}
+              id={val.id}
+              name={val.name}
+              lastName={val.lastname}
+              email={val.email}
+              comunnication={val.communication_channel}
+            />
+          );
+        })}
+      </View>
+    </ScrollView>
+  );
 };
 
 const styles = StyleSheet.create({
