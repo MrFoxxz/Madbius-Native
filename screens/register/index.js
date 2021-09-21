@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import {Button, StyleSheet, Alert, Text, TextInput, View} from 'react-native';
 import {RadioButton} from 'react-native-paper';
 //Redux
 import {useSelector, useDispatch} from 'react-redux';
-import {postNewUser} from '../../actions/index.js';
+import {postNewUser, getUserListStore} from '../../actions/index.js';
 //Geolocation
 import Geolocation from '@react-native-community/geolocation';
 //Permissions
@@ -18,6 +18,13 @@ const Register = ({navigation}) => {
     email: '',
     communication: '',
   });
+
+  useEffect(() => {
+    axios.get('http://10.0.2.2:3001/api/user/get').then(response => {
+      let usersData = response.data.rows;
+      dispatch(getUserListStore(usersData));
+    });
+  }, []);
 
   const {usersListStore} = useSelector(state => state.users);
 
@@ -35,7 +42,7 @@ const Register = ({navigation}) => {
 
   let submitInfo = () => {
     let userInfo = user;
-    axios.post('http://10.0.2.2:3001/api/user/new', userInfo);
+    /* axios.post('http://10.0.2.2:3001/api/user/new', userInfo); */
     dispatch(postNewUser(userInfo));
     navigation.navigate('Usuarios');
   };

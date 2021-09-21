@@ -16,11 +16,7 @@ export const postNewUser = data => ({
   meta: {
     offline: {
       // the network action to execute:
-      effect: {
-        url: 'http://10.0.2.2:3001/api/user/new',
-        method: 'POST',
-        json: {data},
-      },
+      effect: {},
       // action to dispatch when effect succeeds:
       commit: {type: 'NEW_USER_DATA_COMMIT', meta: {data}},
       // action to dispatch if network action fails permanently:
