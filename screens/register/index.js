@@ -24,7 +24,7 @@ const Register = ({navigation}) => {
       let usersData = response.data.rows;
       dispatch(getUserListStore(usersData));
     });
-  }, []);
+  }, [usersListStore]);
 
   const {usersListStore} = useSelector(state => state.users);
 

@@ -16,7 +16,7 @@ const Users = ({}) => {
       let usersData = response.data.rows;
       dispatch(getUserListStore(usersData));
     });
-  }, []);
+  }, [usersListStore]);
 
   return (
     <ScrollView>

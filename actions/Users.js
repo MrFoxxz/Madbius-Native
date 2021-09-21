@@ -18,9 +18,9 @@ export const postNewUser = data => ({
       // the network action to execute:
       effect: {},
       // action to dispatch when effect succeeds:
-      commit: {type: 'NEW_USER_DATA_COMMIT', meta: {data}},
+      commit: {type: NEW_USER_DATA_COMMIT, meta: {data}},
       // action to dispatch if network action fails permanently:
-      rollback: {type: 'NEW_USER_DATA_ROLLBACK', meta: {data}},
+      rollback: {type: NEW_USER_DATA_ROLLBACK, meta: {data}},
     },
   },
 });

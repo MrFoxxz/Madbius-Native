@@ -25,12 +25,12 @@ const UsersInformation = (state = INIT_USER_STATE, action) => {
         ...state,
         usersListStore: [...state.usersListStore, action.payload],
       };
-    case 'NEW_USER_DATA_COMMIT':
+    case NEW_USER_DATA_COMMIT:
       console.log('NEW_USER_DATA_COMMIT');
       return {
         ...state,
       };
-    case 'NEW_USER_DATA_ROLLBACK':
+    case NEW_USER_DATA_ROLLBACK:
       console.log('NEW_USER_DATA_ROLLBACK');
       return {
         ...state,
