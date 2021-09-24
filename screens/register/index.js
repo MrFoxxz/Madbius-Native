@@ -18,26 +18,47 @@ const Register = ({navigation}) => {
     email: '',
     communication: '',
   });
+  const [posicion, setPosicion] = useState({
+    latitude: null,
+    longitude: null,
+    latitudeDelta: null,
+    longitudeDelta: null,
+  });
 
   useEffect(() => {
-    axios.get('http://10.0.2.2:3001/api/user/get').then(response => {
-      let usersData = response.data.rows;
-      dispatch(getUserListStore(usersData));
-    });
-  }, [usersListStore]);
-
-  const {usersListStore} = useSelector(state => state.users);
-
-  let getLocation = () => {
     requestLocationPermission();
     Geolocation.getCurrentPosition(
       position => {
-        const initialPosition = JSON.stringify(position);
-        console.log(initialPosition);
+        const initialPosition = position.coords;
+        const coords = {
+          latitude: initialPosition.latitude,
+          longitude: initialPosition.longitude,
+          accuracy: initialPosition.accuracy,
+        };
+
+        const oneDegreeOfLongitudeInMeters = 111.32;
+        const circunference = 40075 / 360;
+
+        const latDelta =
+          coords.accuracy * (1 / (Math.cos(coords.latitude) * circunference));
+        const lonDelta = coords.accuracy / oneDegreeOfLongitudeInMeters;
+
+        setPosicion({
+          latitude: coords.latitude,
+          longitude: coords.longitude,
+          latitudeDelta: latDelta,
+          longitudeDelta: lonDelta,
+        });
       },
       error => Alert.alert('Error', JSON.stringify(error)),
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
     );
+  }, []);
+
+  /*   const {usersListStore} = useSelector(state => state.users); */
+
+  let getLocation = () => {
+    console.log(posicion);
   };
 
   let submitInfo = () => {
@@ -82,11 +103,11 @@ const Register = ({navigation}) => {
       </RadioButton.Group>
 
       <Button title="Registrarse" onPress={() => submitInfo()} color="black" />
-      <Button
+      {/* <Button
         title="Ver Store"
         onPress={() => console.log(usersListStore)}
         color="red"
-      />
+      /> */}
       <Button
         title="get location"
         onPress={() => getLocation()}

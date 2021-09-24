@@ -20,7 +20,7 @@ const UsersInformation = (state = INIT_USER_STATE, action) => {
     /* ---------------------------------------------------------------- */
     case POST_NEW_USER:
       console.log('POST_NEW_USER');
-      axios.post('http://10.0.2.2:3001/api/user/new', action.payload);
+      /* axios.post('http://10.0.2.2:3001/api/user/new', action.payload); */
       return {
         ...state,
         usersListStore: [...state.usersListStore, action.payload],
