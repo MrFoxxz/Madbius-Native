@@ -14,6 +14,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Register from './screens/register';
 import Users from './screens/users';
 import Permissions from './screens/permissionsTest';
+import Map from './screens/map';
 
 /* npx react-native run-android */
 
@@ -32,6 +33,11 @@ const App = () => {
           name="Usuarios"
           options={{headerShown: false}}
           component={Users}
+        />
+        <Stack.Screen
+          name="Mapa"
+          options={{headerShown: false}}
+          component={Map}
         />
         <Stack.Screen
           name="Permisos"

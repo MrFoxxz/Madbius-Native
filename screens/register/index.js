@@ -117,6 +117,7 @@ const Register = ({navigation}) => {
         title="Usuarios"
         onPress={() => navigation.navigate('Usuarios')}
       />
+      <Button title="Mapa" onPress={() => navigation.navigate('Mapa')} />
       <Button
         title="Permisos"
         color="black"

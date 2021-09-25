@@ -12,6 +12,8 @@ target 'MadbiusNative' do
     :hermes_enabled => false
   )
 
+  pod 'react-native-maps', :path => '../node_modules/react-native-maps'
+
   target 'MadbiusNativeTests' do
     inherit! :complete
     # Pods for testing
